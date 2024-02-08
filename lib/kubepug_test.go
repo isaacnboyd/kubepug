@@ -9,7 +9,6 @@ import (
 	"github.com/kubepug/kubepug/pkg/store/mock"
 	"github.com/stretchr/testify/require"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/utils/pointer"
 )
 
 const (
@@ -153,13 +152,14 @@ func TestGetDeprecated(t *testing.T) {
 		require.Nil(t, result)
 	})
 
+	configString := "/blabla123/kconfig"
 	t.Run("bad k8s config should fail", func(t *testing.T) {
 		pug := &Kubepug{
 			Config: &Config{
 				GeneratedStore: ts.URL + dataJSON,
 				K8sVersion:     "v1.22",
 				ConfigFlags: &genericclioptions.ConfigFlags{
-					KubeConfig: pointer.String("/blabla123/kconfig"),
+					KubeConfig: &configString,
 				},
 			},
 		}
